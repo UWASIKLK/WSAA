@@ -26,4 +26,3 @@ with  open("document.pdf", 'wb') as handler:
 
 
 
-

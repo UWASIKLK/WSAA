@@ -225,3 +225,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# no file with the apikey will go to github
+config.py
