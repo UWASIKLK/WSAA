@@ -17,26 +17,31 @@ repo = ginstance.get_repo("UWASIKLK/WSAA")
 
 # get the contents of the sample text file
 contents = repo.get_contents("assignments/sampletextoriginal.txt")
-print(contents) # this will print out original sample text
 
 #decode = contents = contents.decoded_content.decode("utf-8")
 
 fileurl = contents.download_url
-#print(fileurl) 
+#print(fileurl)  #testing, this will print the url to the sample text file
 
 response = requests.get(fileurl)
 contentoffile = response.text
-print(contentoffile)
+print(contentoffile, "\n") #printing original sample text with 'Andrew' name
 
-'''
-count = 0
-for name in contentoffile.split():
-    if name == "Andrew":
-        count += 1
-print(f"This sample text contains {count} instances of the name 'Andrew'")
+#counting how many 'Andrew' is in the sample text
+count = contentoffile.count("Andrew")
+print(f"This sample text contains {count} instances of the name 'Andrew'. \n")
 
 replacename = contentoffile.replace("Andrew", "Katarina")
 print(replacename)
+
+#defining the new txt file where the replaced text will be saved
+newfilepath = "assignments/sampletextnew.txt"
+
+githubresponse = repo.create_file(newfilepath,"Name 'Andrew' has bee updated to name 'Katarina' and text was saved in new file", replacename)
+print("\n\nNew file with the updated text was created successfully:", githubresponse)
+
+'''
+#this is as per originall assignment request to update the existing file
 
 githubresponse = repo.update_file(contents.path,"Name 'Andrew' has bee updated to name 'Katarina'",replacename,contents.sha)
 print("Text file has been updated successfully:", githubresponse)'
