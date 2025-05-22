@@ -6,10 +6,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
-<body class="p-4">
+
+<body class="p-4" style="background-color: #cce9f0;">
   <div class="container">
-    <div class="p-4 mb-4 bg-light border rounder">
-    <h1 class="display-4">Patients</h1>
+    <div class="p-4 mb-4 border rounded" style="background-image: url('/static/background_1/shield_generated.jpg'); background-size: cover; background-position: center;">
+        <h1 class="display-4 fw-bold text-start" style="color: #cce9f0;">Patient</h1>
     </div>
 
     <!-- Search -->
@@ -18,7 +19,7 @@
             <input type="number" id="searchPatientID" placeholder="Enter Patient ID" class="form-control">
         </div>
         <div class="col-auto">
-            <button type="button" id="searchButton" class="btn btn-secondary">Search</button>
+            <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;">Search</button>
         </div>
     </div>
 
@@ -42,7 +43,8 @@
         <div class="col"><input type="email" id="email" class="form-control" placeholder="Email"></div>
         <div class="col"><input type="number" id="doctorID" class="form-control" placeholder="Doctor ID" required></div>
       </div>
-      <button type="submit" class="btn btn-primary mt-3">Save</button>
+      <button type="submit" id="saveButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;margin-top: 1rem;">
+  Save</button>
     </form>
 
     <!-- Patient Table -->
@@ -89,8 +91,8 @@
                 <td>${patient.email}</td>
                 <td>${patient.doctorID}</td>
                 <td>
-                  <button class="btn btn-sm btn-warning" onclick="editPatient(${patient.patientID})">Edit</button>
-                  <button class="btn btn-sm btn-danger" onclick="deletePatient(${patient.patientID})">Delete</button>
+                  <button type="submit" id="editButton" style="color: white; background-color: #03583c;" onclick="editPatient(${patient.patientID})">Edit</button>
+                  <button type="submit" id="deleteButton" style="color: white; background-color: #8d0c32;" onclick="deletePatient(${patient.patientID})">Delete</button>
                 </td>
               </tr>
             `;
