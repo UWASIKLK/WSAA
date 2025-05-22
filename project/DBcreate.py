@@ -1,16 +1,21 @@
 import pymysql
+from pymysql import Error
 
-db = pymysql.connect(
-    host="localhost",
-    user="root",
-    password="root"  
-)
+try:
+    print("Connecting to MySQL...")
 
-cursor = db.cursor()
+    db = pymysql.connect(
+        host="localhost",
+        user="root",
+        password="root"
+    )
 
-cursor.execute("CREATE DATABASE IF NOT EXISTS clinic")
+    print("Connected!")
+    cursor = db.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS clinic")
+    print("Database 'clinic' created or already exists.")
+    cursor.close()
+    db.close()
 
-cursor.close()
-db.close()
-
-print("Database 'clinic' created or already exists.")
+except Error as e:
+    print("Error:", e)
