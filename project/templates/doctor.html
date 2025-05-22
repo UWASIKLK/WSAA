@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        
+</head>
+<body class="p-4" style="background-color: #cce9f0;">
+  <div class="container">
+    <div class="p-4 mb-4 border rounded" style="background-image: url('/static/background_1/shield_generated.jpg'); background-size: cover; background-position: center;">
+        <h1 class="display-4 fw-bold text-start" style="color: #cce9f0;">Doctor</h1>
+    </div>
+  
+
+    <!-- Search -->
+    <div class="mb-4 row">
+        <div class="col-auto">
+            <input type="number" id="searchDoctorID" placeholder="Enter Doctor ID" class="form-control">
+        </div>
+        <div class="col-auto">
+            <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;">Search</button>
+        </div>
+    </div>
+
+   <!-- Doctor Form -->
+    <form id="doctorForm" class="mb-4">
+      <input type="hidden" id="doctorID">
+      <div class="row">
+        <div class="col"><input type="text" id="firstname" class="form-control" placeholder="First Name" required></div>
+        <div class="col"><input type="text" id="surname" class="form-control" placeholder="Surname" required></div>
+      </div>
+      <div class="row mt-2">
+        <div class="col"><input type="text" id="specialization" class="form-control" placeholder="Specialization" required></div>
+        <div class="col"><input type="text" id="phone" class="form-control" placeholder="Phone" required></div>
+        <div class="col"><input type="email" id="email" class="form-control" placeholder="Email"></div>
+      </div>
+      <button type="submit" id="saveButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;margin-top: 1rem;">
+  Save
+</button>
+
+    </form>
+
+    <!-- Doctor Table -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th><th>Specialization</th><th>Phone</th><th>Email</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="doctorTableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const apiUrl = "/api/doctor";
+
+    document.addEventListener("DOMContentLoaded", loadDoctor);
+    document.getElementById("doctorForm").addEventListener("submit", saveDoctor);
+    document.getElementById("searchButton").addEventListener("click", searchDoctor);
+
+    function loadDoctor() {
+      fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+          const table = document.getElementById("doctorTableBody");
+          table.innerHTML = "";
+          data.forEach(doctor => {
+            table.innerHTML += `
+              <tr>
+                <td>${doctor.doctorID}</td>
+                <td>${doctor.firstname} ${doctor.surname}</td>
+                <td>${doctor.specialization}</td>
+                <td>${doctor.phone}</td>
+                <td>${doctor.email}</td>
+                <td>
+                  <button type="submit" id="editButton" style="color: white; background-color: #03583c;" onclick="editDoctor(${doctor.doctorID})">Edit</button>
+                  <button type="submit" id="deleteButton" style="color: white; background-color: #8d0c32;" onclick="deleteDoctor(${doctor.doctorID})">Delete</button>
+                </td>
+              </tr>
+            `;
+          });
+        })
+        .catch(err => alert("Error loading doctor: " + err));
+    }
+
+    function saveDoctor(e) {
+      e.preventDefault();
+
+      const doctorID = document.getElementById("doctorID").value;
+      const doctorData = {
+        firstname: document.getElementById("firstname").value,
+        surname: document.getElementById("surname").value,
+        specialization: document.getElementById("specialization").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+      };
+
+      const method = doctorID ? "PUT" : "POST";
+      const url = doctorID ? `${apiUrl}/${doctorID}` : apiUrl;
+
+      fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(doctorData)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to save");
+        return res.json();
+      })
+      .then(() => {
+        document.getElementById("doctorForm").reset();
+        loadDoctor();
+      })
+      .catch(err => alert(err));
+    }
+
+    function editDoctor(id) {
+      fetch(`${apiUrl}/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("doctorID").value = data.doctorID;
+          document.getElementById("firstname").value = data.firstname;
+          document.getElementById("surname").value = data.surname;
+          document.getElementById("specialization").value = data.specialization;
+          document.getElementById("phone").value = data.phone;
+          document.getElementById("email").value = data.email;
+        })
+        .catch(err => alert("Error loading doctor: " + err));
+    }
+
+    function deleteDoctor(id) {
+      if (confirm("Are you sure you want to delete this doctor?")) {
+        fetch(`${apiUrl}/${id}`, { method: "DELETE" })
+          .then(() => loadDoctor())
+          .catch(err => alert("Delete failed: " + err));
+      }
+    }
+
+    function searchDoctor() {
+      const doctorID = document.getElementById("searchDoctorID").value;
+      if (!doctorID) {
+        alert("Please enter a valid Doctor ID.");
+        return;
+      }
+
+      fetch(`${apiUrl}/${doctorID}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Doctor not found");
+          }
+          return response.json();
+        })
+        .then(data => {
+          editDoctor(data.doctorID); // loads data into form
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    }
+  </script>
+</body>
+</html>

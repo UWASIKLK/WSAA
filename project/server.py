@@ -13,7 +13,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def index():
     return "Welcome to the Clinic API."
 
-## Patients ##
+
+## PATIENTS ##
 
 # Route for serving HTML patients
 @app.route('/patientsview')
@@ -29,7 +30,7 @@ def get_all_patients():
 # GET a single patient by ID
 @app.route('/api/patients/<int:patientID>', methods=['GET'])
 def get_patient_by_id(patientID):
-    result = clinic_instance.findByID(patientID)
+    result = clinic_instance.findByIDpatient(patientID)
     if result is None:
         return jsonify({"error": "Patient not found"}), 404
     return jsonify(result)
@@ -38,59 +39,59 @@ def get_patient_by_id(patientID):
 @app.route('/api/patients', methods=['POST'])
 def create_patient():
     patient = request.get_json()
-    return jsonify(clinic_instance.create(patient))
+    return jsonify(clinic_instance.createpatient(patient))
 
 # Update an existing patient
 @app.route('/api/patients/<int:patientID>', methods=['PUT'])
 def update_patient(patientID):
     patient = request.get_json()
     patient["patientID"] = patientID  # Add ID to the payload
-    return jsonify(clinic_instance.update(patient))
+    return jsonify(clinic_instance.updatepatient(patient))
 
 #Delete a patient
 @app.route('/api/patients/<int:patientID>', methods=['DELETE'])
 def delete_patient(patientID):
-    return jsonify(clinic_instance.delete(patientID))
+    return jsonify(clinic_instance.deletepatient(patientID))
 
 
-## Doctor ##
+## DOCTOR ##
 
 # Route for serving HTML doctor
 @app.route('/doctorview')
 def doctor_view():
     return render_template("doctor.html")
 
-# GET all patients
-@app.route('/api/patients', methods=['GET'])
-def get_all_patients():
-    patients = clinic_instance.getallpatient()  # Should return list of dicts
-    return jsonify(patients)
+# GET all doctors
+@app.route('/api/doctor', methods=['GET'])
+def get_all_doctor():
+    doctors = clinic_instance.getalldoctor()  # Should return list of dicts
+    return jsonify(doctors)
 
-# GET a single patient by ID
-@app.route('/api/patients/<int:patientID>', methods=['GET'])
-def get_patient_by_id(patientID):
-    result = clinic_instance.findByID(patientID)
+# GET a single doctor by ID
+@app.route('/api/doctor/<int:doctorID>', methods=['GET'])
+def get_doctor_by_id(doctorID):
+    result = clinic_instance.findByIDdoctor(doctorID)
     if result is None:
-        return jsonify({"error": "Patient not found"}), 404
+        return jsonify({"error": "Doctor not found"}), 404
     return jsonify(result)
 
-# Create a new patient
-@app.route('/api/patients', methods=['POST'])
-def create_patient():
-    patient = request.get_json()
-    return jsonify(clinic_instance.create(patient))
+# Create a new doctor
+@app.route('/api/doctor', methods=['POST'])
+def create_doctor():
+    newdoctor = request.get_json()
+    return jsonify(clinic_instance.createdoctor(newdoctor))
 
-# Update an existing patient
-@app.route('/api/patients/<int:patientID>', methods=['PUT'])
-def update_patient(patientID):
-    patient = request.get_json()
-    patient["patientID"] = patientID  # Add ID to the payload
-    return jsonify(clinic_instance.update(patient))
+# Update an existing doctor
+@app.route('/api/doctor/<int:doctorID>', methods=['PUT'])
+def update_doctor(doctorID):
+    updoctor = request.get_json()
+    updoctor["doctorID"] = doctorID  # Add ID to the payload
+    return jsonify(clinic_instance.updatedoctor(updoctor))
 
-#Delete a patient
-@app.route('/api/patients/<int:patientID>', methods=['DELETE'])
-def delete_patient(patientID):
-    return jsonify(clinic_instance.delete(patientID))
+#Delete a doctor
+@app.route('/api/doctor/<int:doctorID>', methods=['DELETE'])
+def delete_doctor(doctorID):
+    return jsonify(clinic_instance.deletedoctor(doctorID))
 
 if __name__ == "__main__":
     app.run(debug=True)

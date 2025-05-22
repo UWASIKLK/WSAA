@@ -115,7 +115,7 @@ class Clinic:
     
     def findByIDdoctor(self, id):
         cursor = self.getcursor()
-        sql="SELECT * FROM doctor WHERE patientID = %s"
+        sql="SELECT * FROM doctor WHERE doctorID = %s"
         values = (id,)
         cursor.execute(sql, values)
         result = cursor.fetchone()
@@ -153,7 +153,7 @@ class Clinic:
         
         sql="""UPDATE doctor SET 
         firstname = %s,surname =%s, specialization =%s,         
-        phone = %s, email = %s,  
+        phone = %s, email = %s  
         WHERE doctorID = %s"""
         data=(
         values['firstname'], values['surname'], values['specialization'], 
