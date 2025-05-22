@@ -3,25 +3,25 @@
 <head>
   <title>Doctor Management</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-        
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body class="p-4" style="background-color: #cce9f0;">
   <div class="container">
     <div class="p-4 mb-4 border rounded" style="background-image: url('/static/background_1/shield_generated.jpg'); background-size: cover; background-position: center;">
-        <h1 class="display-4 fw-bold text-start" style="color: #cce9f0;">Doctor</h1>
+      <h1 class="display-4 fw-bold text-start" style="color: #cce9f0;">Doctor</h1>
     </div>
 
     <!-- Search -->
     <div class="mb-4 row">
-        <div class="col-auto">
-            <input type="number" id="searchDoctorID" placeholder="Enter Doctor ID" class="form-control">
-        </div>
-        <div class="col-auto">
-            <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;">Search</button>
-        </div>
+      <div class="col-auto">
+        <input type="number" id="searchDoctorID" placeholder="Enter Doctor ID" class="form-control">
+      </div>
+      <div class="col-auto">
+        <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;">Search</button>
+      </div>
     </div>
 
-   <!-- Doctor Form -->
+    <!-- Doctor Form -->
     <form id="doctorForm" class="mb-4">
       <input type="hidden" id="doctorID">
       <div class="row">
@@ -33,17 +33,21 @@
         <div class="col"><input type="text" id="phone" class="form-control" placeholder="Phone" required></div>
         <div class="col"><input type="email" id="email" class="form-control" placeholder="Email"></div>
       </div>
-      <button type="submit" id="saveButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;margin-top: 1rem;">
-  Save
-</button>
-
+      <button type="submit" id="saveButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px; margin-top: 1rem;">
+        Save
+      </button>
     </form>
 
     <!-- Doctor Table -->
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>ID</th><th>Name</th><th>Specialization</th><th>Phone</th><th>Email</th><th>Actions</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Specialization</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody id="doctorTableBody"></tbody>
@@ -53,18 +57,19 @@
   <script>
     const apiUrl = "/api/doctor";
 
-    document.addEventListener("DOMContentLoaded", loadDoctor);
+    document.addEventListener("DOMContentLoaded", loadDoctors);
     document.getElementById("doctorForm").addEventListener("submit", saveDoctor);
     document.getElementById("searchButton").addEventListener("click", searchDoctor);
 
-    function loadDoctor() {
-      fetch(apiUrl)
-        .then(res => res.json())
-        .then(data => {
-          const table = document.getElementById("doctorTableBody");
-          table.innerHTML = "";
+    function loadDoctors() {
+      $.ajax({
+        url: "/api/doctor",
+        method: 'GET',
+        success: function (data) {
+          const table = $("#doctorTableBody");
+          table.empty();
           data.forEach(doctor => {
-            table.innerHTML += `
+            table.append(`
               <tr>
                 <td>${doctor.doctorID}</td>
                 <td>${doctor.firstname} ${doctor.surname}</td>
@@ -72,89 +77,97 @@
                 <td>${doctor.phone}</td>
                 <td>${doctor.email}</td>
                 <td>
-                  <button type="submit" id="editButton" style="color: white; background-color: #03583c;" onclick="editDoctor(${doctor.doctorID})">Edit</button>
-                  <button type="submit" id="deleteButton" style="color: white; background-color: #8d0c32;" onclick="deleteDoctor(${doctor.doctorID})">Delete</button>
+                  <button type="button" style="color: white; background-color: #03583c; border: none; padding: 4px 8px; margin-right: 4px;" onclick="editDoctor(${doctor.doctorID})">Edit</button>
+                  <button type="button" style="color: white; background-color: #8d0c32; border: none; padding: 4px 8px;" onclick="deleteDoctor(${doctor.doctorID})">Delete</button>
                 </td>
               </tr>
-            `;
+            `);
           });
-        })
-        .catch(err => alert("Error loading doctor: " + err));
+        },
+        error: function () {
+          alert("Error loading doctors.");
+        }
+      });
     }
 
     function saveDoctor(e) {
       e.preventDefault();
 
-      const doctorID = document.getElementById("doctorID").value;
+      const doctorID = $("#doctorID").val();
       const doctorData = {
-        firstname: document.getElementById("firstname").value,
-        surname: document.getElementById("surname").value,
-        specialization: document.getElementById("specialization").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
+        firstname: $("#firstname").val(),
+        surname: $("#surname").val(),
+        specialization: $("#specialization").val(),
+        phone: $("#phone").val(),
+        email: $("#email").val(),
       };
 
       const method = doctorID ? "PUT" : "POST";
       const url = doctorID ? `${apiUrl}/${doctorID}` : apiUrl;
 
-      fetch(url, {
+      $.ajax({
+        url: url,
         method: method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(doctorData)
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to save");
-        return res.json();
-      })
-      .then(() => {
-        document.getElementById("doctorForm").reset();
-        loadDoctor();
-      })
-      .catch(err => alert(err));
+        contentType: "application/json",
+        data: JSON.stringify(doctorData),
+        success: function () {
+          $("#doctorForm")[0].reset();
+          loadDoctors();
+        },
+        error: function () {
+          alert("Failed to save doctor.");
+        }
+      });
     }
 
     function editDoctor(id) {
-      fetch(`${apiUrl}/${id}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("doctorID").value = data.doctorID;
-          document.getElementById("firstname").value = data.firstname;
-          document.getElementById("surname").value = data.surname;
-          document.getElementById("specialization").value = data.specialization;
-          document.getElementById("phone").value = data.phone;
-          document.getElementById("email").value = data.email;
-        })
-        .catch(err => alert("Error loading doctor: " + err));
+      $.ajax({
+        url: `${apiUrl}/${id}`,
+        method: "GET",
+        success: function (data) {
+          $("#doctorID").val(data.doctorID);
+          $("#firstname").val(data.firstname);
+          $("#surname").val(data.surname);
+          $("#specialization").val(data.specialization);
+          $("#phone").val(data.phone);
+          $("#email").val(data.email);
+        },
+        error: function () {
+          alert("Error loading doctor.");
+        }
+      });
     }
 
     function deleteDoctor(id) {
       if (confirm("Are you sure you want to delete this doctor?")) {
-        fetch(`${apiUrl}/${id}`, { method: "DELETE" })
-          .then(() => loadDoctor())
-          .catch(err => alert("Delete failed: " + err));
+        $.ajax({
+          url: `${apiUrl}/${id}`,
+          method: "DELETE",
+          success: loadDoctors,
+          error: function () {
+            alert("Delete failed.");
+          }
+        });
       }
     }
 
     function searchDoctor() {
-      const doctorID = document.getElementById("searchDoctorID").value;
+      const doctorID = $("#searchDoctorID").val();
       if (!doctorID) {
         alert("Please enter a valid Doctor ID.");
         return;
       }
 
-      fetch(`${apiUrl}/${doctorID}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Doctor not found");
-          }
-          return response.json();
-        })
-        .then(data => {
-          editDoctor(data.doctorID); // loads data into form
-        })
-        .catch(error => {
-          alert(error.message);
-        });
+      $.ajax({
+        url: `${apiUrl}/${doctorID}`,
+        method: 'GET',
+        success: function (data) {
+          editDoctor(data.doctorID);
+        },
+        error: function () {
+          alert("Doctor not found.");
+        }
+      });
     }
   </script>
 </body>
