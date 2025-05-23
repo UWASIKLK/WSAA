@@ -20,7 +20,8 @@
             <input type="number" id="searchPatientID" placeholder="Enter Patient ID" class="form-control">
         </div>
         <div class="col-auto">
-            <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;">Search</button>
+            <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px; margin-right: 0.5rem;">Search</button>
+            <button type="button" id="clearButton" style="color: white; background-color: #686768; padding: 0.5rem 1rem; border: black; border-radius: 3px;">Clear</button>
         </div>
     </div>
 
@@ -65,6 +66,8 @@
     document.addEventListener("DOMContentLoaded", loadPatients);
     document.getElementById("patientForm").addEventListener("submit", savePatient);
     document.getElementById("searchButton").addEventListener("click", searchPatient);
+    document.getElementById("clearButton").addEventListener("click", function() { document.getElementById("searchPatientID").value = ""; clearForm(); loadPatients();});
+
 
     function formatDate(dateString) {         //converting the date string into format dd/mm/yyyy
         const date = new Date(dateString);
@@ -93,8 +96,8 @@
                 <td>${patient.email}</td>
                 <td>${patient.doctorID}</td>
                 <td>
-                  <button type="submit" style="color: white; background-color: #03583c;" onclick="editPatient(${patient.patientID})">Edit</button>
-                  <button type="submit" style="color: white; background-color: #8d0c32;" onclick="deletePatient(${patient.patientID})">Delete</button>
+                  <button type="button" style="color: white; background-color: #118856; padding: 0.3rem 0.7rem; border: none; border-radius: 2.5px" onclick="editPatient(${patient.patientID})">Edit</button>
+                  <button type="button" style="color: white; background-color: #9c351c; padding: 0.3rem 0.7rem; border: none; border-radius: 2.5px" onclick="deletePatient(${patient.patientID})">Delete</button>
                 </td>
               </tr>
             `);
@@ -198,6 +201,12 @@
             alert ("Patient not found.");
         }
       });
+    }
+
+    function clearForm() {
+      $("#patientForm")[0].reset();
+      $("#patientID").val("");
+      $("#dob")[0]._flatpickr.clear();
     }
   </script>
 </body>

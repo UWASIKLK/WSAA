@@ -18,6 +18,7 @@
       </div>
       <div class="col-auto">
         <button type="button" id="searchButton" style="color: white; background-color: #030b58; padding: 0.5rem 1rem; border: none; border-radius: 3px;">Search</button>
+        <button type="button" id="clearButton" style="color: white; background-color: #686768; padding: 0.5rem 1rem; border: black; border-radius: 3px;">Clear</button>
       </div>
     </div>
 
@@ -60,6 +61,7 @@
     document.addEventListener("DOMContentLoaded", loadDoctors);
     document.getElementById("doctorForm").addEventListener("submit", saveDoctor);
     document.getElementById("searchButton").addEventListener("click", searchDoctor);
+    document.getElementById("clearButton").addEventListener("click", function() { document.getElementById("searchDoctorID").value = ""; clearForm(); loadDoctors();});
 
     function loadDoctors() {
       $.ajax({
@@ -77,8 +79,8 @@
                 <td>${doctor.phone}</td>
                 <td>${doctor.email}</td>
                 <td>
-                  <button type="button" style="color: white; background-color: #03583c; border: none; padding: 4px 8px; margin-right: 4px;" onclick="editDoctor(${doctor.doctorID})">Edit</button>
-                  <button type="button" style="color: white; background-color: #8d0c32; border: none; padding: 4px 8px;" onclick="deleteDoctor(${doctor.doctorID})">Delete</button>
+                  <button type="button" style="color: white; background-color: #118856; border: none; padding: 0.3rem 0.7rem;border-radius: 2.5px;" onclick="editDoctor(${doctor.doctorID})">Edit</button>
+                  <button type="button" style="color: white; background-color: #9c351c; padding: 0.3rem 0.7rem; border: none; border-radius: 2.5px;" onclick="deleteDoctor(${doctor.doctorID})">Delete</button>
                 </td>
               </tr>
             `);
@@ -169,6 +171,11 @@
         }
       });
     }
+
+    function clearForm() {
+      $("#doctorForm")[0].reset();
+      $("#doctorID").val("");
+  }
   </script>
 </body>
 </html>
