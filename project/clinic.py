@@ -1,6 +1,13 @@
 import pymysql
 import dbconfig as cfg
 
+'''I had to use the PyMySQL connector instead of Anaconda's MySQL connector 
+(mysql.connector.connect()) because a simple Python script (create database) was crashing silently and 
+without throwing an exception, the problem could have been caused by an 
+incompatibility in my Anaconda environment. I spent 3 days trying to solve this problem, 
+but without the help of ChatGPT, I couldn't move on.'''
+
+
 class Clinic:
     connection=""
     cursor =''
@@ -48,9 +55,9 @@ class Clinic:
         cursor.execute(sql)
         results = cursor.fetchall()
         patientslist = []
-        #print(results)
+        
         for result in results:
-          #print(result)
+         
             patientslist.append(self.convertToDictionarypatients(result))
         self.closeAll()
         return patientslist
@@ -61,9 +68,9 @@ class Clinic:
         cursor.execute(sql)
         results = cursor.fetchall()
         doctorlist = []
-        #print(results)
+        
         for result in results:
-            #print(result)
+            
                 doctorlist.append(self.convertToDictionarydoctor(result))
         self.closeAll()
         return doctorlist
@@ -79,7 +86,7 @@ class Clinic:
         values['email'], values['doctorID'])
         cursor.execute(sql, data)
 
-        #cursor.execute(sql, values)
+        
         self.connection.commit()
         newid = cursor.lastrowid
         self.closeAll()
@@ -176,8 +183,6 @@ class Clinic:
         values1 = (id,)
         cursor.execute(sql1,values1)
         selectedpatient = cursor.fetchone()
-        #cursor.execute("SELECT firstname, surname FROM patient WHERE id= %s", (id,))
-        #selectedpatient = cursor.fetchone()
         if selectedpatient:
             firstname, surname = selectedpatient
             sql="DELETE FROM patients WHERE patientID = %s"
@@ -195,8 +200,6 @@ class Clinic:
         values1 = (id,)
         cursor.execute(sql1,values1)
         selecteddoctor = cursor.fetchone()
-        #cursor.execute("SELECT firstname, surname FROM patient WHERE id= %s", (id,))
-        #selectedpatient = cursor.fetchone()
         if selecteddoctor:
             firstname, surname = selecteddoctor
             sql="DELETE FROM doctor WHERE doctorID = %s"
