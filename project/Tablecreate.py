@@ -1,3 +1,5 @@
+# Python script to which will created doctor and patients table.
+
 import pymysql
 from pymysql import Error
 
