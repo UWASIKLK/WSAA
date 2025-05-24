@@ -2,14 +2,14 @@
 
 import pymysql
 from pymysql import Error
+import dbconfig as cfg
 
 try:
     db = pymysql.connect(
-        host="localhost",
-        user="root",
-        password="root",
-        database="clinic"
-    )
+    host= cfg.mysql['host'],
+    user=cfg.mysql['user'],
+    password=cfg.mysql['password']
+)
 
     cursor = db.cursor()
 
