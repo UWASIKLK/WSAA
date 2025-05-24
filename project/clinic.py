@@ -7,7 +7,7 @@ without throwing an exception, the problem could have been caused by an
 incompatibility in my Anaconda environment. I spent 3 days trying to solve this problem, 
 but without the help of ChatGPT, I couldn't move on.'''
 
-
+# This is a data object class to connect with the database.
 class Clinic:
     connection=""
     cursor =''
@@ -17,12 +17,14 @@ class Clinic:
     port =      ''
     database=   ''
     
+    # Reads and initializes database credentials from the config file
     def __init__(self):
         self.host=       cfg.mysql['host']
         self.user=       cfg.mysql['user']
         self.password=   cfg.mysql['password']
         self.database=   cfg.mysql['database']
 
+    # Setting up connection with database and returns cursor.
     def getcursor(self): 
         self.connection = pymysql.connect(
             host=       self.host,
@@ -33,22 +35,26 @@ class Clinic:
         self.cursor = self.connection.cursor()
         return self.cursor
     
+    # This will generates a dictionary from the results of a query to the patient table.
     def convertToDictionarypatients(self, result):
         columns = ['patientID', 'firstname', 'surname', 'dob', 'address', 'city', 'county', 'eir_code', 'phone', 'email', 'doctorID']
         if result is None:
             return {}
         return dict(zip(columns, result))
     
+    # This will generates a dictionary from the results of a query to the doctor table.
     def convertToDictionarydoctor(self, result):
         columns = ['doctorID', 'firstname', 'surname', 'specialization', 'phone', 'email']
         if result is None:
             return {}
         return dict(zip(columns, result))
 
+    # Closing off connection with database and cursor.
     def closeAll(self):
         self.connection.close()
         self.cursor.close()
 
+    # Will return all the patients details from database.
     def getallpatient(self):
         cursor = self.getcursor()
         sql= "SELECT * FROM patients"
@@ -62,6 +68,7 @@ class Clinic:
         self.closeAll()
         return patientslist
     
+    # Will return all the doctors details from database.
     def getalldoctor(self):
         cursor = self.getcursor()
         sql= "SELECT * FROM doctor"
@@ -75,6 +82,7 @@ class Clinic:
         self.closeAll()
         return doctorlist
 
+    # This will create new patient and insert details to the patient table.
     def createpatient(self, values):
         cursor = self.getcursor()
         sql="""INSERT INTO patients (firstname, surname, dob, address, city, county, eir_code, phone, email, doctorID) 
@@ -92,6 +100,7 @@ class Clinic:
         self.closeAll()
         return newid
     
+    # This will create new doctor and insert details to the doctor table.
     def createdoctor(self, values):
         cursor = self.getcursor()
         sql="""INSERT INTO doctor (firstname, surname, specialization, phone, email) 
@@ -107,6 +116,7 @@ class Clinic:
         self.closeAll()
         return newid
 
+    # Will get details of the patient by patient ID.
     def findByIDpatient(self, id):
         cursor = self.getcursor()
         sql="SELECT * FROM patients WHERE patientID = %s"
@@ -120,6 +130,7 @@ class Clinic:
         
         return self.convertToDictionarypatients(result)
     
+    # Will get details of the doctor by doctor ID.
     def findByIDdoctor(self, id):
         cursor = self.getcursor()
         sql="SELECT * FROM doctor WHERE doctorID = %s"
@@ -132,6 +143,7 @@ class Clinic:
     
         return self.convertToDictionarydoctor(result)
 
+    # This will update existing patient details.
     def updatepatient(self, values):
         cursor = self.getcursor()
 
@@ -154,7 +166,8 @@ class Clinic:
         else:
             self.closeAll()
             return {'message': 'Patient not found'}, 404
-       
+
+    # This will update existing doctor details.   
     def updatedoctor(self, values):
         cursor = self.getcursor()
         
@@ -176,7 +189,7 @@ class Clinic:
             self.closeAll()
             return {'message': 'Doctor not found'}, 404
        
-
+    # This will delete patient.
     def deletepatient(self, id):
         cursor = self.getcursor()
         sql1 = "SELECT firstname, surname FROM patients WHERE patientID= %s"
@@ -194,6 +207,7 @@ class Clinic:
             print(f"No patient found with ID: {id}")
         self.closeAll()
 
+    # This will delete doctor.
     def deletedoctor(self, id):
         cursor = self.getcursor()
         sql1 = "SELECT firstname, surname FROM doctor WHERE doctorID= %s"

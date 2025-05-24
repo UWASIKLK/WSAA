@@ -11,7 +11,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # Home route
 @app.route('/')
 def index():
-    return "Welcome to the Clinic API."
+    return render_template("index.html")
 
 
 ## PATIENTS ##

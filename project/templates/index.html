@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clinic Management Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!--Set up style for html and css-->
+  <style>
+    body {
+      background-color: #cce9f0;
+    }
+    .hero-banner {
+      background-image: url('/static/background_1/shield_generated.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #cce9f0;
+    }
+    .nav-card {
+      transition: transform 0.2s;
+    }
+    .nav-card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="p-4">
+  <div class="container">
+    <div class="p-5 mb-5 text-center rounded hero-banner">
+      <h1 class="display-4 fw-bold text-start">Clinic Management System</h1>
+      <p class="lead text-start">Welcome to the portal for managing doctors and patients</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-5 mb-4">
+        <div class="card nav-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <h2 class="card-title">Doctor Management</h2>
+            <p class="card-text">Manage doctor profiles, specializations, and contact details.</p>
+            <a href="/doctorview" class="btn btn-primary" style="background-color: #030b58;">Go to Doctor Page</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5 mb-4">
+        <div class="card nav-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <h2 class="card-title">Patient Management</h2>
+            <p class="card-text">Manage patient records, appointments, and assigned doctors.</p>
+            <a href="/patientsview" class="btn btn-primary" style="background-color: #030b58;">Go to Patient Page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div>
+</body>
+</html>

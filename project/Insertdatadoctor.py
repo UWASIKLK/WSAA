@@ -1,10 +1,13 @@
+# Python script to insert one record to the doctor's table.
+
 import pymysql
+import dbconfig as cfg
 
 db = pymysql.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database= "clinic"  
+    host= cfg.mysql['host'],
+    user=cfg.mysql['user'],
+    password=cfg.mysql['password']
+    database= cfg.mysql['database'] 
 )
 
 cursor = db.cursor()

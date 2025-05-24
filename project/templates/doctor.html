@@ -1,3 +1,5 @@
+<!-- This is a doctor page for database clinic-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +57,7 @@
     </table>
   </div>
 
+  <!--Script for loading doctor data from database to page load, submit, search and clear data, updates the html table.-->
   <script>
     const apiUrl = "/api/doctor";
 
@@ -63,6 +66,7 @@
     document.getElementById("searchButton").addEventListener("click", searchDoctor);
     document.getElementById("clearButton").addEventListener("click", function() { document.getElementById("searchDoctorID").value = ""; clearForm(); loadDoctors();});
 
+    // Function which will populates all doctors from database.
     function loadDoctors() {
       $.ajax({
         url: "/api/doctor",
@@ -92,6 +96,7 @@
       });
     }
 
+    // Function which will create a new doctor and add it to database.
     function saveDoctor(e) {
       e.preventDefault();
 
@@ -122,6 +127,7 @@
       });
     }
 
+    // Function which will update existing doctor's details.
     function editDoctor(id) {
       $.ajax({
         url: `${apiUrl}/${id}`,
@@ -140,6 +146,7 @@
       });
     }
 
+    // Function to delete the doctor.
     function deleteDoctor(id) {
       if (confirm("Are you sure you want to delete this doctor?")) {
         $.ajax({
@@ -153,6 +160,7 @@
       }
     }
 
+    // Function to search the doctor by doctor ID.
     function searchDoctor() {
       const doctorID = $("#searchDoctorID").val();
       if (!doctorID) {
@@ -172,6 +180,7 @@
       });
     }
 
+    // Function which clears the form after the search.
     function clearForm() {
       $("#doctorForm")[0].reset();
       $("#doctorID").val("");
