@@ -11,9 +11,7 @@ Learn how to create own API using the python module Flask to make data available
 To get started with this project, you will need to download the necessary software/application in 
 case you don't have it:
 
-- **[Anaconda](https://www.anaconda.com/)** - it is a platform which is used to share a code 
-design for machine learning and data science. It is open-source distribution of the Python and R 
-programming languages. Modules required for this project are Pandas and Matplotlib.
+- **[Python](https://www.python.org/downloads/)** - it is a computer programming language which can be used for various of tasks, like to build website, data analysis and software testing. 
 
 - **[Visual Studio Code](https://visualstudio.microsoft.com/downloads/)** - it is integrated 
 development environment (IDE) designed by Microsoft which can be used for writing, editing, 
@@ -46,3 +44,13 @@ and lab work.
 - **CSO Data:** Write a program that retrieves the dataset for the "exchequerAccount (historical series)" from CSO and stores it into a file called "cso.json". Program name: "assignment03-cso.py".
 
 - **Github authorisation:** Write a program in python that will read a file from a repository. The program should then replace all the instances of the text "Andrew" with your name. The program should then commit those changes and push the file back to the repository. Program name: "assignment04-github.py".
+
+#### Project
+
+Create a Web application in Flask that has a RESTful API, the application should link to one or more database tables. You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data. The full project description is **[here](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/labs/WSAA%20Project%20Description.pdf)**.
+
+The goal of this project was to design a MySQL database to store information about patients and doctors. The backend is built using Python Flask, which provides a RESTful API for interacting with the database. The web interface allows users to search, add, and delete records from both the 'doctors' and 'patients' tables.
+
+**Project Structure**
+
+![project structure](/project/static/structure.png)
