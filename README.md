@@ -49,8 +49,9 @@ and lab work.
 
 Create a Web application in Flask that has a RESTful API, the application should link to one or more database tables. You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data. The full project description is **[here](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/labs/WSAA%20Project%20Description.pdf)**.
 
-The goal of this project was to design a MySQL database to store information about patients and doctors. The backend is built using Python Flask, which provides a RESTful API for interacting with the database. The web interface allows users to search, add, and delete records from both the 'doctors' and 'patients' tables.
+I created a "clinic" database with two tables, "doctor" and "patients", inspired by my work in the health insurance industry. The goal of this project was to design a MySQL database capable of storing and managing information about doctors and patients. The backend is developed using Python Flask, which exposes a RESTful API for database interactions. Additionally, a web interface enables users to search, add, and delete records in both the doctors and patients tables.
 
 **Project Structure**
 
 ![project structure](/project/static/structure.png)
+
