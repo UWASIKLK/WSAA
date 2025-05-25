@@ -1,6 +1,15 @@
-# WSAA - Web Services and Applications
+
+<div style="position: relative ; text-align: left; fw-bold; color: rgba(167, 42, 11, 0.83);">
+  <img src="./project/static/background.jpg" alt="background" style="width:100%; border: 2px solid #ccc; border-radius: 10px;">
+  <h1 style="position: absolute; top: 80%; left: 40%; transform: translate(-50%, -50%);
+             font-size: 1.5em; font-weight: bold; background: rgba(4, 25, 34, 0.22); padding: 0.5em 1em; border-radius: 10px;">
+    WSAA - Web Services and Applications
+  </h1>
+</div>
+
 ***
-This repository contains assignment, labs, my work and final project. 
+
+This repository contains assignment, labs, my work and final project.
 
 The purpose of this module was to introduce the different ways of obtaining data from external sources (CSO, weather servers, event information) and in what format the data can arrive (XML, JSON, CSV) and how the data can be retrieved (via API - Application Programmer's Interface) and processed using JavaScript and Python.
 
@@ -152,8 +161,14 @@ ChatGPT - recommended to use [Flatprickr](https://flatpickr.js.org/getting-start
 
 ChatGPT - I asked for the HTML viewer template for each table in database using Flask and Ajax.
 
+[jQuery-Ajax Introduction](https://www.w3schools.com/jquery/jquery_ajax_intro.asp)
+
+[jQuery Examples](https://www.w3schools.com/jquery/jquery_examples.asp)
+
+[jQuery Selectors](https://www.w3schools.com/JQuery/jquery_ref_selectors.asp)
+
 [Bootstrap](https://getbootstrap.com/docs/5.3/components/buttons/) - used for HTML viewers.
 
 [CSS Tutorial](https://www.w3schools.com/css) - used for HTML viewers.
 
-[Background picture](https://getbootstrap.com/docs/5.3/components/buttons/) - free background picture.
+[Background picture](https://www.vecteezy.com/free-vector/healthcare-background) - free background pictures.
