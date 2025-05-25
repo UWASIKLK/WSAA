@@ -37,7 +37,8 @@ and lab work.
 * **assignments** - this directory contains the practical assignments.
 * **project** - this directory contains the final project for this module.
 
-#### Assignments
+## Assignments
+***
 
 - **Deal Cards:** Write a program that "deals" (prints) 5 cards and call it "assignment02-carddraw.py". Using the [Deck of Cards API](https://deckofcardsapi.com/) page, this is an API that simulates dealing a deck of cards.
 
@@ -45,13 +46,14 @@ and lab work.
 
 - **Github authorisation:** Write a program in python that will read a file from a repository. The program should then replace all the instances of the text "Andrew" with your name. The program should then commit those changes and push the file back to the repository. Program name: "assignment04-github.py".
 
-#### Project
+## Project
+***
 
 Create a Web application in Flask that has a RESTful API, the application should link to one or more database tables. You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data. The full project description is **[here](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/labs/WSAA%20Project%20Description.pdf)**.
 
 I created a "clinic" database with two tables, "doctor" and "patients", inspired by my work in the health insurance industry. The goal of this project was to design a MySQL database capable of storing and managing information about doctors and patients. The backend is developed using Python Flask, which exposes a RESTful API for database interactions. Additionally, a web interface enables users to search, add, and delete records in both the doctors and patients tables.
 
-**Project Structure**
+### Project Structure ###
 
 ![project structure](./project/static/structure.png)
 
@@ -63,7 +65,7 @@ I created a "clinic" database with two tables, "doctor" and "patients", inspired
 
 - **server.py** - this python script enables communication between the frontend interface (HTML pages) and the database via RESTful API, allows users to interact with doctor and patient records. It is the main entry point for running the backend, which initializes the web server, defines routes (endpoints) for handling HTTP requests, and performs operations such as retrieving or modifying data in the database.
 
-**<u>Route_Overview_-_server.py</u>**
+### Route Overview - `server.py` ###
 
 **General:**
 
@@ -90,3 +92,41 @@ provided by the user
 - `POST/api/doctor/<doctorID>` -  this will update the doctor's data based 
 on the doctor ID
 - `DELETE/api/doctor/<doctorID>` -  this deletes the doctor by ID
+
+### Installation ###
+
+- Clone the repository:
+
+`git clone https://github.com/UWASIKLK/WSAA.git
+ cd project`
+
+- Create virtual environment:
+
+`python -m venv .venv` and activate it `.venv\Scripts\activate`
+
+- Install requirements.txt:
+
+`pip install -r requirements.txt`
+
+- Run the necessary database setup scripts:
+
+`python DBcreate.py`
+
+`python Tablecreate.py`
+
+`python Insertdatapatients.py`   (optional, if you want intitial data for patient table)
+
+`python Insertdatadoctor.py`     (optional, if you want intitial data for doctor table)
+
+- Run the python script:
+
+`python server.py`
+
+- Opent in your browser:
+
+`http://127.0.0.1:5000`
+
+
+
+### References ###
+
