@@ -53,5 +53,40 @@ I created a "clinic" database with two tables, "doctor" and "patients", inspired
 
 **Project Structure**
 
-![project structure](/project/static/structure.png)
+![project structure](./project/static/structure.png)
 
+- **DBcreate.py, Tablecreate.py, Insertdatadoctor.py, Insertdatapatient.py** - these Python scripts are used to set up the database for the application. The process includes creating the database, defining the “doctors” and “patients” tables, and inserting sample records into each table for testing or demonstration purposes.
+
+- **clinic.py** - this is a basic backend logic module that processes patient and doctor data. It defines the `"Clinic"` class, which serves as an interface between the Flask application and the MySQL database. Connection to the database is done through the settings from the `"dbconfig.py"`. The module is imported and used in the `"sever.py"`, where the Flask routes call the methods defined in the `"Clinic"` class.
+
+- **dbconfig.py** - this file is used to store the configuration settings needed to connect the python application to the MySQL database.
+
+- **server.py** - this python script enables communication between the frontend interface (HTML pages) and the database via RESTful API, allows users to interact with doctor and patient records. It is the main entry point for running the backend, which initializes the web server, defines routes (endpoints) for handling HTTP requests, and performs operations such as retrieving or modifying data in the database.
+
+**<u>Route_Overview_-_server.py</u>**
+
+**General:**
+
+ - `/` -  loads the home page `(index.html)`
+
+ **Patient** Routes:
+
+- `/patientsview` -  this will display the patients HTML page`(patientsview.html)`
+- `GET/api/patients` -  this will return a list of all patients
+- `GET/api/patients/<patientID>` -  this will retrieve details of a specific patient based on the patient ID input by the user
+- `POST/api/patients` -  this will create a new patient based on the JSON data provided by the user
+- `POST/api/patients/<patientID>` -  this will update the patient's data based on the patient ID
+- `DELETE/api/patients/<patientID>` -  this deletes the patient by ID
+
+ **Doctor** Routes:
+
+- `/doctorview` -  this will display the patients HTML page`(doctorview.html)`
+`
+- `GET/api/doctor` -  this will return a list of all doctors
+- `GET/api/doctor/<doctorID>` -  this will retrieve details of a specific 
+doctor based on the doctor ID input by the user
+- `POST/api/doctor` -  this will create a new doctor based on the JSON data 
+provided by the user
+- `POST/api/doctor/<doctorID>` -  this will update the doctor's data based 
+on the doctor ID
+- `DELETE/api/doctor/<doctorID>` -  this deletes the doctor by ID
