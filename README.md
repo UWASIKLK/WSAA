@@ -130,3 +130,30 @@ on the doctor ID
 
 ### References ###
 
+[Andrew Beatty Courseware](https://github.com/andrewbeattycourseware/WSAA-Courseware.git) - the lecturer’s github repository, which I mainly used.
+
+[Deploy to Pythonanywhere](https://github.com/andrewbeattycourseware/deploytopythonanywhere.git) - the lecturer’s github repository that I used as a skeleton for my project.
+
+[MySQL connector](https://stackoverflow.com/questions/79507899/why-mysql-connector-is-not-working-although-pymysql-is-working-to-connect-datab) - I had to use PyMySQL insetead of Python MySQL Connector.
+
+[Using PyMySQL to connect to MySQL](https://www.geeksforgeeks.org/connect-to-mysql-using-pymysql-in-python/)
+
+[Flask quickstart](https://flask.palletsprojects.com/en/stable/quickstart/)
+
+[Flask App Routing](https://www.geeksforgeeks.org/flask-app-routing/)
+
+ChatGPT - recommended to use [Flatprickr](https://flatpickr.js.org/getting-started/) to handle issues related to inscosistent full date string. Flatpickr provides a popup calendar in the web interface, which simplifies date input and ensures that all date values are formatted consistently before being processed by `server.py`.
+
+[Rendering templates](https://www.geeksforgeeks.org/flask-rendering-templates/)
+
+[Flask templates](https://www.geeksforgeeks.org/flask-templates/)
+
+[CRUD in python using MySQL](https://www.geeksforgeeks.org/crud-operation-in-python-using-mysql/)
+
+ChatGPT - I asked for the HTML viewer template for each table in database using Flask and Ajax.
+
+[Bootstrap](https://getbootstrap.com/docs/5.3/components/buttons/) - used for HTML viewers.
+
+[CSS Tutorial](https://www.w3schools.com/css) - used for HTML viewers.
+
+[Background picture](https://getbootstrap.com/docs/5.3/components/buttons/) - free background picture.
