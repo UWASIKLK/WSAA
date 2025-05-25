@@ -1,12 +1,6 @@
 
-<div style="position: relative ; text-align: left; fw-bold; color: rgba(167, 42, 11, 0.83);">
-  <img src="./project/static/background.jpg" alt="background" style="width:100%; border: 2px solid #ccc; border-radius: 10px;">
-  <h1 style="position: absolute; top: 80%; left: 40%; transform: translate(-50%, -50%);
-             font-size: 1.5em; font-weight: bold; background: rgba(4, 25, 34, 0.22); padding: 0.5em 1em; border-radius: 10px;">
-    WSAA - Web Services and Applications
-  </h1>
-</div>
-
+![background](./project/static/background.jpg)
+## WSAA - Web Services and Applications ##
 ***
 
 This repository contains assignment, labs, my work and final project.
